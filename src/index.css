@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -6,6 +10,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background: radial-gradient(
+    ellipse,
+    rgb(231, 248, 241) 0%,
+    rgba(203, 235, 255, 1) 28%,
+    rgba(184, 214, 219, 1) 62%,
+    rgba(188, 193, 242, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#bcc1f2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 code {
