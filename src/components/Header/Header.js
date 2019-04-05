@@ -12,7 +12,7 @@ const imageStyle = {
 
 const Header = props => {
   return (
-    <div className="header-component">
+    <div className="black-background">
       <div className="ui three column stackable grid">
         <div className="row">
           <div className="two wide column middle aligned">
