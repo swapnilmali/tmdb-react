@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import StarRatings from "react-star-ratings";
+import { addCssClass, removeCssClass } from "../../util/CssUtil";
 
 class MovieListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.contentDimmer = React.createRef();
+    this.pageDimmer = React.createRef();
+  }
+
   style = { color: "white", fontWeight: "bold" };
 
   // Returns rating div with stars if average votes are greater than 0
@@ -33,25 +40,23 @@ class MovieListItem extends Component {
     }
   };
 
-  hasClass = (el, className) => {
-    if (el.classList) return el.classList.contains(className);
-    return !!el.className.match(new RegExp("(\\s|^)" + className + "(\\s|$)"));
+  // On roll over show dimmer component
+  rollOverHandler = () => {
+    addCssClass(this.contentDimmer, "active");
   };
 
-  rollOverHandler = event => {
-    const dimmer = document.querySelector("#dimmer" + this.props.movie.id);
-    if (dimmer.classList) dimmer.classList.add("active");
-    else if (!this.hasClass(dimmer, "active")) dimmer.className += " active";
+  // On roll over hide dimmer component
+  rollOutHandler = () => {
+    removeCssClass(this.contentDimmer, "active");
   };
 
-  rollOutHandler = event => {
-    const dimmer = document.querySelector("#dimmer" + this.props.movie.id);
-    if (dimmer.classList) dimmer.classList.remove("active");
-    else if (this.hasClass(dimmer, "active")) {
-      var reg = new RegExp("(\\s|^)active(\\s|$)");
-      dimmer.className = dimmer.className.replace(reg, " ");
+  getOverview() {
+    let overview = this.props.movie.overview;
+    if (overview.length > 600) {
+      overview = overview.substr(0, 600) + "...";
     }
-  };
+    return overview;
+  }
 
   render() {
     const { movie } = this.props;
@@ -68,15 +73,19 @@ class MovieListItem extends Component {
         <div className="image">
           <img
             alt={movie.title}
-            src={`http://image.tmdb.org/t/p/w342${movie.poster_path}`}
+            src={
+              movie.poster_path
+                ? `http://image.tmdb.org/t/p/w342${movie.poster_path}`
+                : "/assets/poster.png"
+            }
           />
         </div>
-        <div id={`dimmer${movie.id}`} className="ui dimmer">
+        <div ref={this.contentDimmer} className="ui dimmer">
           <div className="content" style={this.style}>
             <h2 className="ui inverted header" style={{ color: "#00FF00" }}>
               {movie.title}
             </h2>
-            <h4 style={{ color: "#cccccc" }}>{movie.overview}</h4>
+            <h4 style={{ color: "#cccccc" }}>{this.getOverview()}</h4>
           </div>
         </div>
       </div>

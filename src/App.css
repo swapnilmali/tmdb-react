@@ -29,3 +29,11 @@
 .image-list img {
   width: 250px;
 }
+
+.hide-component {
+  display: none;
+}
+
+.show-component {
+  display: inherit;
+}

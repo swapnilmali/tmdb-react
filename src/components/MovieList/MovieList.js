@@ -3,17 +3,27 @@ import { withRouter } from "react-router-dom";
 import * as Config from "../../config";
 import Axios from "../../api/axios";
 import MovieListItem from "./MovieListItem";
+import { addCssClass, removeCssClass } from "../../util/CssUtil";
 
 class MovieList extends Component {
+  constructor(props) {
+    super(props);
+    this.pageDimmer = React.createRef();
+    this.headingRef = React.createRef();
+  }
+
+  pageNumber = 1;
   state = {
     movies: [],
     error: null,
     searchType: "popular",
-    searchParam: undefined
+    searchParam: undefined,
+    movieCount: 0
   };
 
   // Search the movies with default state
   componentDidMount() {
+    addCssClass(this.pageDimmer, "active");
     this.searchMovies();
   }
 
@@ -23,9 +33,42 @@ class MovieList extends Component {
       prevState.searchType !== this.state.searchType ||
       prevState.searchParam !== this.state.searchParam
     ) {
+      addCssClass(this.pageDimmer, "active");
+      this.pageNumber = 1;
+      this.setState({ movies: [] });
       this.searchMovies();
     }
   }
+
+  getHeading = () => {
+    let heading = "";
+    switch (this.state.searchType) {
+      case Config.POPULAR_MOVIES:
+        heading += "Popular";
+        break;
+      case Config.TOP_RATED_MOVIES:
+        heading += "Top Rated";
+        break;
+      case Config.UPCOMING_MOVIES:
+        heading += "Upcoming";
+        break;
+      case Config.NOW_PLAYING_MOVIES:
+        heading += "Now Playing";
+        break;
+      case Config.SEARCH_MOVIES:
+        heading =
+          "Found " +
+          this.state.movieCount +
+          " results of '" +
+          this.state.searchParam +
+          "'";
+        break;
+      default:
+        heading = "";
+        break;
+    }
+    return heading;
+  };
 
   // Check the props for changes in the state
   // set the state according to the route
@@ -50,7 +93,8 @@ class MovieList extends Component {
     let method;
     let params = {
       language: "en-US",
-      region: "US"
+      region: "US",
+      page: this.pageNumber
     };
     if (searchType === Config.SEARCH_MOVIES) {
       method = "/" + Config.SEARCH_MOVIES + "/movie";
@@ -62,21 +106,39 @@ class MovieList extends Component {
     } else {
       method = Config.MOVIE_API + searchType;
     }
-    console.log(method);
+    this.pageNumber++;
     const response = await Axios.get(method, {
       params: params
     });
-    const movies = response.data.results;
+
+    const movies = this.state.movies.concat(response.data.results);
     this.setState({
-      movies
+      movies,
+      movieCount: response.data.total_results
     });
+    removeCssClass(this.pageDimmer, "active");
   };
 
   render() {
     const movies = this.state.movies.map(movie => {
       return <MovieListItem key={movie.id} movie={movie} />;
     });
-    return <div className="ui stackable cards centered">{movies}</div>;
+    return (
+      <>
+        <h2
+          ref={this.headingRef}
+          style={{ color: "white", paddingLeft: "2em" }}
+        >
+          {this.getHeading()}
+        </h2>
+        <div className="ui stackable cards centered">
+          {movies}
+          <div ref={this.pageDimmer} className="ui page dimmer">
+            <div class="ui text loader">Getting Movies</div>
+          </div>
+        </div>
+      </>
+    );
   }
 }
 
