@@ -8,7 +8,7 @@ import { LazyLoadComponent } from "react-lazy-load-image-component";
 class MovieListItem extends Component {
   constructor(props) {
     super(props);
-    this.contentDimmer = React.createRef();
+    this.dimmerRef = React.createRef();
     this.pageDimmer = React.createRef();
   }
 
@@ -45,12 +45,12 @@ class MovieListItem extends Component {
 
   // On roll over show dimmer component
   rollOverHandler = () => {
-    addCssClass(this.contentDimmer, "active");
+    addCssClass(this.dimmerRef, "active");
   };
 
   // On roll over hide dimmer component
   rollOutHandler = () => {
-    removeCssClass(this.contentDimmer, "active");
+    removeCssClass(this.dimmerRef, "active");
   };
 
   getOverview() {
@@ -88,7 +88,7 @@ class MovieListItem extends Component {
           </div>
         </LazyLoadComponent>
 
-        <div ref={this.contentDimmer} className="ui dimmer transition fade in">
+        <div ref={this.dimmerRef} className="ui dimmer transition fade in">
           <div className="content" style={this.style}>
             <h2 className="ui inverted header" style={{ color: "#00FF00" }}>
               {movie.title}

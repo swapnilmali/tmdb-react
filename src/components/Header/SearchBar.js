@@ -1,13 +1,25 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import { addCssClass, removeCssClass } from "../../util/CssUtil";
 
 class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+    this.searchRef = React.createRef();
+  }
+
   state = {
     term: ""
   };
 
   changeHandler = event => {
-    this.setState({ term: event.target.value });
+    const term = event.target.value;
+    if (term !== "") {
+      addCssClass(this.searchRef, "loading");
+    } else {
+      removeCssClass(this.searchRef, "loading");
+    }
+    this.setState({ term });
   };
 
   submitHandler = event => {
@@ -22,7 +34,7 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="content">
-        <div className="ui search">
+        <div ref={this.searchRef} className="ui search">
           <form className="ui form" onSubmit={this.submitHandler}>
             <div className="ui icon input" style={{ width: "100%" }}>
               <input

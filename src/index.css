@@ -12,9 +12,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background: radial-gradient(
-    ellipse,
-    rgb(230, 28, 248) 0%,
-    rgb(5, 132, 252) 100%
+    circle,
+    rgb(5, 132, 252) 0%,
+    rgb(230, 28, 248) 100%
   );
   background-repeat: no-repeat;
   background-attachment: fixed;
