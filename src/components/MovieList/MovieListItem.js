@@ -87,6 +87,9 @@ class MovieListItem extends Component {
             />
           </div>
         </LazyLoadComponent>
+        <div className="content">
+          &nbsp;{movie.title} &nbsp;({movie.release_date.split("-")[0]})
+        </div>
 
         <div ref={this.dimmerRef} className="ui dimmer transition fade in">
           <div className="content" style={this.style}>
