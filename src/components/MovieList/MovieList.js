@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroll-component";
 import * as Config from "../../config";
 import Axios from "../../api/axios";
 import MovieListItem from "./MovieListItem";
@@ -101,7 +102,8 @@ class MovieList extends Component {
       params = {
         query: this.state.searchParam,
         language: "en-US",
-        region: "US"
+        region: "US",
+        page: this.pageNumber
       };
     } else {
       method = Config.MOVIE_API + searchType;
@@ -131,11 +133,21 @@ class MovieList extends Component {
         >
           {this.getHeading()}
         </h2>
-        <div className="ui stackable cards centered">
+        <InfiniteScroll
+          className="ui stackable cards centered"
+          dataLength={movies.length} //This is important field to render the next data
+          next={this.searchMovies}
+          hasMore={true}
+          loader=""
+          endMessage=""
+        >
           {movies}
-          <div ref={this.pageDimmer} className="ui page dimmer">
-            <div class="ui text loader">Getting Movies</div>
-          </div>
+        </InfiniteScroll>
+        <div
+          ref={this.pageDimmer}
+          className="ui page dimmer transition fade in"
+        >
+          <div className="ui text loader">Getting Movies</div>
         </div>
       </>
     );

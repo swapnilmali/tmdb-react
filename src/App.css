@@ -19,21 +19,15 @@
   color: white;
 }
 
-.image-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 0 10px;
-  grid-auto-rows: 10px;
-}
-
-.image-list img {
-  width: 250px;
-}
-
 .hide-component {
   display: none;
 }
 
 .show-component {
   display: inherit;
+}
+
+.movie-item-image {
+  max-height: 450px;
+  object-fit: cover;
 }

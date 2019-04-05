@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import { addCssClass, removeCssClass } from "../../util/CssUtil";
+import { BASE_IMAGE_URL } from "../../config";
+import { LazyLoadComponent } from "react-lazy-load-image-component";
 
 class MovieListItem extends Component {
   constructor(props) {
@@ -70,17 +73,22 @@ class MovieListItem extends Component {
         onClick={this.props.onClick}
       >
         {this.getRating(movie)}
-        <div className="image">
-          <img
-            alt={movie.title}
-            src={
-              movie.poster_path
-                ? `http://image.tmdb.org/t/p/w342${movie.poster_path}`
-                : "/assets/poster.png"
-            }
-          />
-        </div>
-        <div ref={this.contentDimmer} className="ui dimmer">
+        <LazyLoadComponent>
+          <div className="ui image">
+            <img
+              className="movie-item-image"
+              alt={movie.title}
+              effect="blur"
+              src={
+                movie.poster_path
+                  ? `${BASE_IMAGE_URL}/w342${movie.poster_path}`
+                  : "/assets/poster.png"
+              }
+            />
+          </div>
+        </LazyLoadComponent>
+
+        <div ref={this.contentDimmer} className="ui dimmer transition fade in">
           <div className="content" style={this.style}>
             <h2 className="ui inverted header" style={{ color: "#00FF00" }}>
               {movie.title}
@@ -93,4 +101,4 @@ class MovieListItem extends Component {
   }
 }
 
-export default MovieListItem;
+export default withRouter(MovieListItem);

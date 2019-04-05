@@ -13,10 +13,8 @@ body {
 
   background: radial-gradient(
     ellipse,
-    rgb(150, 40, 101) 10%,
-    rgb(52, 38, 116) 28%,
-    rgb(30, 25, 112) 62%,
-    rgb(165, 38, 15) 100%
+    rgb(230, 28, 248) 0%,
+    rgb(5, 132, 252) 100%
   );
   background-repeat: no-repeat;
   background-attachment: fixed;
