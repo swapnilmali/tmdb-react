@@ -13,17 +13,17 @@ const imageStyle = {
 const Header = props => {
   return (
     <div className="header-component">
-      <div className="ui three column padded stackable grid">
+      <div className="ui three column stackable grid">
         <div className="row">
           <div className="two wide column middle aligned">
             <Link to="/">
               <img alt="The Movie DB" src="assets/db.svg" style={imageStyle} />
             </Link>
           </div>
-          <div className="right floated nine wide column middle aligned">
+          <div className="right floated seven wide column middle aligned">
             <SearchBar />
           </div>
-          <div className="five wide column middle aligned">
+          <div className="seven wide column middle aligned">
             <NavBar />
           </div>
         </div>

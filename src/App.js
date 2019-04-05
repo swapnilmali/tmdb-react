@@ -10,13 +10,21 @@ class App extends Component {
     return (
       <>
         <Router>
-          <div className="ui inverted fixed top">
+          <div
+            className="ui container-fluid fixed top sticky full-width"
+            style={{
+              position: "sticky"
+            }}
+          >
             <Header />
           </div>
-          <div className="ui main container-fluid">
+
+          <div id="content" className="ui main container-fluid full-width">
             <Route exact path="/" component={MovieList} />
+            <Route exact path="/:query" component={MovieList} />
+            <Route exact path="/search/:query" component={MovieList} />
           </div>
-          <div class="ui center aligned inverted footer segment fixed bottom sticky full-width">
+          <div className="ui center aligned segment inverted footer fixed bottom sticky full-width">
             <Footer />
           </div>
         </Router>

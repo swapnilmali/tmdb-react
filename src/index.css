@@ -11,16 +11,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   background: radial-gradient(
     ellipse,
-    rgb(231, 248, 241) 0%,
-    rgba(203, 235, 255, 1) 28%,
-    rgba(184, 214, 219, 1) 62%,
-    rgba(188, 193, 242, 1) 100%
+    rgb(150, 40, 101) 10%,
+    rgb(52, 38, 116) 28%,
+    rgb(30, 25, 112) 62%,
+    rgb(165, 38, 15) 100%
   );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#bcc1f2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 code {

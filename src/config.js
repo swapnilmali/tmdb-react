@@ -7,8 +7,15 @@ export const DEFAULT_POSTER = "/assets/poster.png";
 export const DEFAULT_PERSON_PHOTO = "/assets/photo.png";
 export const DEFAULT_LOGO_PHOTO = "/assets/logo.png";
 
-// Routes
-export const MOVIE_ROUTE = "/movie/";
-export const COMPANY_ROUTE = "/company/";
-export const PERSON_ROUTE = "/person/";
-export const GENRE_ROUTE = "/genre/";
+// API Methods
+export const MOVIE_API = "/movie/";
+export const COMPANY_API = "/company/";
+export const PERSON_API = "/person/";
+export const GENRE_API = "/genre/";
+
+// Types of movie listings
+export const SEARCH_MOVIES = "search";
+export const POPULAR_MOVIES = "popular";
+export const TOP_RATED_MOVIES = "top_rated";
+export const UPCOMING_MOVIES = "upcoming";
+export const NOW_PLAYING_MOVIES = "now_playing";
