@@ -17,7 +17,7 @@ export const searchMovies = async (searchType, searchParam, pageNumber) => {
       page: pageNumber
     };
   } else {
-    method = Config.MOVIE_API + searchType;
+    method = Config.MOVIE_API + "/" + searchType;
   }
 
   const response = await Axios.get(method, {

@@ -4,6 +4,7 @@ import StarRatings from "react-star-ratings";
 import { addCssClass, removeCssClass } from "../../util/CssUtil";
 import { BASE_IMAGE_URL } from "../../config";
 import GenreList from "../GenreList/GenreList";
+import { MOVIE_API } from "../../config";
 
 class MovieListItem extends Component {
   constructor(props) {
@@ -80,6 +81,13 @@ class MovieListItem extends Component {
     return title;
   }
 
+  clickHandler = () => {
+    this.props.history.push({
+      pathname: MOVIE_API,
+      state: { movie: this.props.movie }
+    });
+  };
+
   render() {
     const { movie } = this.props;
     return (
@@ -88,7 +96,7 @@ class MovieListItem extends Component {
         id="movie-list-item"
         className="ui card dimmable"
         style={{ cursor: "pointer" }}
-        onClick={this.props.onClick}
+        onClick={this.clickHandler}
       >
         {this.getRating(movie)}
         {/* <div class="ui placeholder"> */}

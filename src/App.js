@@ -4,6 +4,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import MovieList from "./components/MovieList/MovieList";
 import Footer from "./components/Footer/Footer";
+import MovieDetails from "./components/MovieDetails/MovieDetails";
 
 class App extends Component {
   render() {
@@ -21,8 +22,9 @@ class App extends Component {
 
           <div id="content" className="ui main container-fluid full-width">
             <Route exact path="/" component={MovieList} />
-            <Route exact path="/:query" component={MovieList} />
+            <Route exact path="/get/:query" component={MovieList} />
             <Route exact path="/search/:query" component={MovieList} />
+            <Route exact path="/movie" component={MovieDetails} />
           </div>
           <div className="ui center aligned segment inverted footer fixed bottom sticky full-width">
             <Footer />

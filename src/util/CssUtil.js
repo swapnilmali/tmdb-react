@@ -22,3 +22,10 @@ export const hasClass = (element, className) => {
     new RegExp("(\\s|^)" + className + "(\\s|$)")
   );
 };
+
+export const setDefaultBgProperties = body => {
+  body.style.backgroundRepeat = "no-repeat";
+  body.style.backgroundPosition = "center";
+  body.style.backgroundAttachment = "fixed";
+  body.style.backgroundSize = "cover";
+};

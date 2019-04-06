@@ -10,7 +10,7 @@ const NavBar = props => {
         style={{
           marginTop: "2px"
         }}
-        to={`/${Config.POPULAR_MOVIES}`}
+        to={`/get/${Config.POPULAR_MOVIES}`}
       >
         Popular
       </Link>
@@ -19,7 +19,7 @@ const NavBar = props => {
         style={{
           marginTop: "2px"
         }}
-        to={`/${Config.TOP_RATED_MOVIES}`}
+        to={`/get/${Config.TOP_RATED_MOVIES}`}
       >
         Top rated
       </Link>
@@ -28,7 +28,7 @@ const NavBar = props => {
         style={{
           marginTop: "2px"
         }}
-        to={`/${Config.UPCOMING_MOVIES}`}
+        to={`/get/${Config.UPCOMING_MOVIES}`}
       >
         Upcoming
       </Link>
@@ -37,7 +37,7 @@ const NavBar = props => {
         style={{
           marginTop: "2px"
         }}
-        to={`/${Config.NOW_PLAYING_MOVIES}`}
+        to={`/get/${Config.NOW_PLAYING_MOVIES}`}
       >
         Now Playing
       </Link>
