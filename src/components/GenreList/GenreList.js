@@ -1,9 +1,11 @@
 import React from "react";
 import { GENRES } from "../../config";
+import { isNumber } from "util";
 
 const GenreList = props => {
   const size = props.size ? props.size : "medium";
-  const genres = props.genres.map(genreId => {
+  const genres = props.genres.map(source => {
+    let genreId = isNumber(source) ? source : source.id;
     const genre = GENRES[genreId];
     return (
       <label
@@ -12,7 +14,7 @@ const GenreList = props => {
         style={{
           color: "white",
           backgroundColor: genre.color,
-          marginTop: "2px",
+          marginBottom: "2px",
           cursor: "pointer"
         }}
       >

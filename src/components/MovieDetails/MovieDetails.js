@@ -3,19 +3,32 @@ import { withRouter } from "react-router-dom";
 import { BASE_IMAGE_URL } from "../../config";
 import { setDefaultBgProperties } from "../../util/CssUtil";
 import MovieMeta from "./MovieMeta";
+import { getMovieDetails } from "../../api/MovieAPI";
+import Pace from "react-pace-progress";
 
 class MovieDetails extends Component {
-  state = { movie: null };
+  state = { movie: null, loaded: false };
 
   // Check the props for changes in the state
   // set the state according to the route
   static getDerivedStateFromProps(nextProps, prevState) {
     const { movie } = nextProps.location.state;
     if (prevState.movie && prevState.movie.id !== movie.id) {
-      return { movie };
+      return { movie: movie, loaded: false };
     }
     return null;
   }
+
+  componentDidUpdate = () => {
+    if (!this.state.loaded) {
+      this.getDetails(this.state.movie.id);
+    }
+  };
+
+  getDetails = async id => {
+    const movie = await getMovieDetails(id);
+    this.setState({ movie, loaded: true });
+  };
 
   componentDidMount = () => {
     this.setState({ movie: this.props.location.state.movie });
@@ -51,29 +64,37 @@ class MovieDetails extends Component {
       : "/assets/poster.png";
     this.setBackdrop();
     return (
-      <div
-        className="ui segment stackable two column grid"
-        style={{
-          margin: "2em",
-          marginLeft: "10em",
-          marginRight: "10em",
-          padding: "2em",
-          backgroundColor: "rgba(0, 0, 0, 0.8)",
-          border: "1px solid #333"
-        }}
-      >
-        <div className="four wide column">
-          <img
-            className="ui centered image"
-            alt={movie.title}
-            src={src}
-            style={{ maxHeight: "400px", border: "1px solid #222" }}
-          />
+      <>
+        {!this.state.loaded ? (
+          <Pace color="#27ae60" height={3} style={{ display: "absolute" }} />
+        ) : null}
+        `
+        <div
+          className="ui segment"
+          style={{
+            margin: "2vh",
+            marginLeft: "10vw",
+            marginRight: "10vw",
+            padding: "2vh",
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            border: "1px solid #333"
+          }}
+        >
+          <div className="ui stackable two column grid">
+            <div className="four wide column">
+              <img
+                className="ui centered image"
+                alt={movie.title}
+                src={src}
+                style={{ maxHeight: "400px", border: "1px solid #222" }}
+              />
+            </div>
+            <div className="right floated twelve wide column">
+              <MovieMeta movie={movie} />
+            </div>
+          </div>
         </div>
-        <div className="right floated twelve wide column">
-          <MovieMeta movie={movie} />
-        </div>
-      </div>
+      </>
     );
   }
 }

@@ -110,7 +110,7 @@ class MovieList extends Component {
       return <MovieListItem key={uuidv4()} movie={movie} />;
     });
     return (
-      <>
+      <div style={{ marginBottom: "5vh", marginTop: "2vh" }}>
         <h2
           ref={this.headingRef}
           style={{ color: "white", paddingLeft: "2em" }}
@@ -119,7 +119,7 @@ class MovieList extends Component {
         </h2>
         <InfiniteScroll
           className="ui stackable cards centered"
-          style={{ paddingLeft: "2em", paddingRight: "2em" }}
+          style={{ paddingLeft: "2vw", paddingRight: "2vw" }}
           dataLength={movies.length} //This is important field to render the next data
           next={this.getMovies}
           hasMore={true}
@@ -131,7 +131,7 @@ class MovieList extends Component {
         <div ref={this.dimmerRef} className="ui page dimmer transition fade in">
           <div className="ui text loader">Getting Movies</div>
         </div>
-      </>
+      </div>
     );
   }
 }

@@ -27,3 +27,15 @@ export const searchMovies = async (searchType, searchParam, pageNumber) => {
   const movies = response.data.results;
   return { movies: movies, total: response.data.total_results };
 };
+
+export const getMovieDetails = async id => {
+  let params = {
+    append_to_response: "credits,images,videos,reviews,similar"
+  };
+  const method = Config.MOVIE_API + "/" + id;
+  const response = await Axios.get(method, {
+    params: params
+  });
+  console.log("Movie details", response);
+  return response.data;
+};

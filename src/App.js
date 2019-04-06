@@ -20,7 +20,7 @@ class App extends Component {
             <Header />
           </div>
 
-          <div id="content" className="ui main container-fluid full-width">
+          <div id="content" className="ui full-width">
             <Route exact path="/" component={MovieList} />
             <Route exact path="/get/:query" component={MovieList} />
             <Route exact path="/search/:query" component={MovieList} />
