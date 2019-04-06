@@ -45,12 +45,15 @@ class MovieListItem extends Component {
 
   // On roll over show dimmer component
   rollOverHandler = () => {
+    removeCssClass(this.dimmerRef, "out");
     addCssClass(this.dimmerRef, "active");
+    addCssClass(this.dimmerRef, "in");
   };
 
-  // On roll over hide dimmer component
+  // On roll out hide dimmer component
   rollOutHandler = () => {
-    removeCssClass(this.dimmerRef, "active");
+    removeCssClass(this.dimmerRef, "in");
+    addCssClass(this.dimmerRef, "out");
   };
 
   getOverview() {
@@ -66,7 +69,6 @@ class MovieListItem extends Component {
     return (
       <div
         onMouseOver={this.rollOverHandler}
-        onMouseOut={this.rollOutHandler}
         id="movie-list-item"
         className="ui card dimmable"
         style={{ cursor: "pointer" }}
@@ -87,11 +89,15 @@ class MovieListItem extends Component {
             />
           </div>
         </LazyLoadComponent>
-        <div className="content">
+        <div className="content" style={this.style}>
           &nbsp;{movie.title} &nbsp;({movie.release_date.split("-")[0]})
         </div>
 
-        <div ref={this.dimmerRef} className="ui dimmer transition fade in">
+        <div
+          onMouseOut={this.rollOutHandler}
+          ref={this.dimmerRef}
+          className="ui dimmer transition fade"
+        >
           <div className="content" style={this.style}>
             <h2 className="ui inverted header" style={{ color: "#00FF00" }}>
               {movie.title}

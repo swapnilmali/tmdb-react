@@ -119,6 +119,7 @@ class MovieList extends Component {
         </h2>
         <InfiniteScroll
           className="ui stackable cards centered"
+          style={{ paddingLeft: "2em", paddingRight: "2em" }}
           dataLength={movies.length} //This is important field to render the next data
           next={this.getMovies}
           hasMore={true}
