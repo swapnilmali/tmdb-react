@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import StarRatings from "react-star-ratings";
 import { addCssClass, removeCssClass } from "../../util/CssUtil";
 import { BASE_IMAGE_URL } from "../../config";
 import GenreList from "../GenreList/GenreList";
 import { MOVIE_API } from "../../config";
+import { getRating } from "../../util/MovieUtil";
 
 class MovieListItem extends Component {
   constructor(props) {
@@ -22,35 +22,6 @@ class MovieListItem extends Component {
   };
 
   style = { color: "white", fontWeight: "bold" };
-
-  // Returns rating div with stars if average votes are greater than 0
-  getRating = movie => {
-    if (movie.vote_average > 0) {
-      return (
-        <div className="content">
-          <StarRatings
-            rating={movie.vote_average / 2}
-            starRatedColor="yellow"
-            numberOfStars={5}
-            starDimension="15px"
-            starSpacing="2px"
-            name="rating"
-          />
-          <div className="right floated meta" style={this.style}>{` ${
-            movie.vote_average
-          } / 10`}</div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="content">
-          <div className="right floated meta" style={this.style}>
-            NA
-          </div>
-        </div>
-      );
-    }
-  };
 
   // On roll over show dimmer component
   rollOverHandler = () => {
@@ -98,7 +69,7 @@ class MovieListItem extends Component {
         style={{ cursor: "pointer" }}
         onClick={this.clickHandler}
       >
-        {this.getRating(movie)}
+        {getRating(movie)}
         {/* <div class="ui placeholder"> */}
         <div className="ui image">
           <img
@@ -120,7 +91,14 @@ class MovieListItem extends Component {
           className="ui dimmer transition fade"
         >
           <div className="content" style={this.style}>
-            <h2 className="ui inverted header" style={{ color: "#00FF00" }}>
+            <h2
+              className="ui inverted header"
+              style={{
+                color: "#00FF00",
+                fontFamily: "Spectral",
+                fontSize: "25px"
+              }}
+            >
               {movie.title}
             </h2>
             <h4 style={{ color: "#cccccc" }}>{this.getOverview()}</h4>

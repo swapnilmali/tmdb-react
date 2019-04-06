@@ -11,7 +11,7 @@ class SearchBar extends Component {
     term: "",
     suggestions: []
   };
-
+  selectedSuggestion = null;
   // When suggestion is clicked, Autosuggest needs to populate the input
   // based on the clicked suggestion. Teach Autosuggest how to calculate the
   // input value for every given suggestion.
@@ -50,6 +50,7 @@ class SearchBar extends Component {
 
   async loadSuggestions(value) {
     const response = await searchMovies(Config.SEARCH_MOVIES, value, 1);
+    this.selectedSuggestion = null;
     this.setState({
       suggestions: response.movies
     });
@@ -57,19 +58,27 @@ class SearchBar extends Component {
 
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
-  onSuggestionsFetchRequested = async ({ value }) => {
+  suggestionsFetchRequestedHandler = async ({ value }) => {
     this.debouncedLoadSuggestions(value);
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
-  onSuggestionsClearRequested = () => {
+  suggestionsClearRequestedHandler = () => {
     this.setState({
       suggestions: []
     });
   };
 
-  onSuggestionSelected = (event, { suggestion }) => {
-    console.log(suggestion);
+  suggestionSelectedHandler = (event, { suggestion }) => {
+    this.props.history.push({
+      pathname: Config.MOVIE_API,
+      state: { movie: suggestion }
+    });
+    this.setState({ term: "" });
+  };
+
+  suggestionHighlightedHandler = ({ suggestion }) => {
+    this.selectedSuggestion = suggestion;
   };
 
   changeHandler = (event, { newValue }) => {
@@ -86,7 +95,8 @@ class SearchBar extends Component {
   };
 
   keyDownHandler = event => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && !this.selectedSuggestion) {
+      console.log(this.selectedSuggestion);
       this.submitHandler(event);
     }
   };
@@ -105,11 +115,12 @@ class SearchBar extends Component {
         <Autosuggest
           id="auto-suggest"
           suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          onSuggestionSelected={this.onSuggestionSelected}
+          onSuggestionsFetchRequested={this.suggestionsFetchRequestedHandler}
+          onSuggestionsClearRequested={this.suggestionsClearRequestedHandler}
+          onSuggestionSelected={this.suggestionSelectedHandler}
           getSuggestionValue={this.getSuggestionValue}
           renderSuggestion={this.renderSuggestion}
+          onSuggestionHighlighted={this.suggestionHighlightedHandler}
           inputProps={inputProps}
         />
       </div>
