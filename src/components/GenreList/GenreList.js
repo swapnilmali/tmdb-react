@@ -11,7 +11,8 @@ const GenreList = props => {
         style={{
           color: "white",
           backgroundColor: genre.color,
-          marginTop: "2px"
+          marginTop: "2px",
+          cursor: "pointer"
         }}
       >
         {genre.label}
