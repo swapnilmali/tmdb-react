@@ -8,13 +8,21 @@ const GenreList = props => {
       <label
         key={genreId}
         className="ui medium label"
-        style={{ color: "white", backgroundColor: genre.color }}
+        style={{
+          color: "white",
+          backgroundColor: genre.color,
+          marginTop: "2px"
+        }}
       >
         {genre.label}
       </label>
     );
   });
-  return <div style={props.style}>{genres}</div>;
+  return (
+    <div className="ui" style={props.style}>
+      {genres}
+    </div>
+  );
 };
 
 export default GenreList;

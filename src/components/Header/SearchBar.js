@@ -28,7 +28,7 @@ class SearchBar extends Component {
       <div className="ui" style={{ display: "flex" }}>
         <img
           style={{ border: "1px solid rgb(58, 57, 57)" }}
-          className="ui top aligned image movie-item-image"
+          className="ui center aligned image movie-item-image"
           src={poster_path}
           width={60}
           height={80}

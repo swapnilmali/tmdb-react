@@ -3,14 +3,22 @@ import { withRouter } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import { addCssClass, removeCssClass } from "../../util/CssUtil";
 import { BASE_IMAGE_URL } from "../../config";
-import { LazyLoadComponent } from "react-lazy-load-image-component";
+import GenreList from "../GenreList/GenreList";
 
 class MovieListItem extends Component {
   constructor(props) {
     super(props);
     this.dimmerRef = React.createRef();
-    this.pageDimmer = React.createRef();
+    this.imageRef = React.createRef();
   }
+
+  componentDidMount = () => {
+    const { poster_path } = this.props.movie;
+    const src = poster_path
+      ? `${BASE_IMAGE_URL}/w342${poster_path}`
+      : "/assets/poster.png";
+    this.imageRef.current.src = src;
+  };
 
   style = { color: "white", fontWeight: "bold" };
 
@@ -64,6 +72,14 @@ class MovieListItem extends Component {
     return overview;
   }
 
+  getTitle() {
+    let title = this.props.movie.title;
+    if (title.length > 30) {
+      title = title.substr(0, 30) + "...";
+    }
+    return title;
+  }
+
   render() {
     const { movie } = this.props;
     return (
@@ -75,22 +91,19 @@ class MovieListItem extends Component {
         onClick={this.props.onClick}
       >
         {this.getRating(movie)}
-        <LazyLoadComponent>
-          <div className="ui image">
-            <img
-              className="movie-item-image"
-              alt={movie.title}
-              effect="blur"
-              src={
-                movie.poster_path
-                  ? `${BASE_IMAGE_URL}/w342${movie.poster_path}`
-                  : "/assets/poster.png"
-              }
-            />
-          </div>
-        </LazyLoadComponent>
+        {/* <div class="ui placeholder"> */}
+        <div className="ui image">
+          <img
+            ref={this.imageRef}
+            className="movie-item-image"
+            alt={movie.title}
+            effect="blur"
+            src="/assets/poster.png"
+          />
+        </div>
+        {/* </div> */}
         <div className="content" style={this.style}>
-          &nbsp;{movie.title} &nbsp;({movie.release_date.split("-")[0]})
+          {this.getTitle()} &nbsp;({movie.release_date.split("-")[0]})
         </div>
 
         <div
@@ -103,6 +116,10 @@ class MovieListItem extends Component {
               {movie.title}
             </h2>
             <h4 style={{ color: "#cccccc" }}>{this.getOverview()}</h4>
+            <GenreList
+              style={{ marginTop: "10px", cursor: "pointer" }}
+              genres={movie.genre_ids}
+            />
           </div>
         </div>
       </div>

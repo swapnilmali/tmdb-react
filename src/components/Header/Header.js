@@ -20,10 +20,10 @@ const Header = props => {
               <img alt="The Movie DB" src="assets/db.svg" style={imageStyle} />
             </Link>
           </div>
-          <div className="right floated seven wide column middle aligned">
+          <div className="seven wide column middle aligned">
             <SearchBar />
           </div>
-          <div className="seven wide column middle aligned">
+          <div className="seven wide column middle aligned computer only">
             <NavBar />
           </div>
         </div>

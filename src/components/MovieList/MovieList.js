@@ -5,6 +5,7 @@ import * as Config from "../../config";
 import { searchMovies } from "../../api/MovieAPI";
 import MovieListItem from "./MovieListItem";
 import { addCssClass, removeCssClass } from "../../util/CssUtil";
+import * as uuidv4 from "uuid/v4";
 
 class MovieList extends Component {
   constructor(props) {
@@ -107,7 +108,7 @@ class MovieList extends Component {
 
   render() {
     const movies = this.state.movies.map(movie => {
-      return <MovieListItem key={movie.id} movie={movie} />;
+      return <MovieListItem key={uuidv4()} movie={movie} />;
     });
     return (
       <>
