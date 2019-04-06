@@ -96,10 +96,9 @@ class MovieList extends Component {
       this.state.searchParam,
       this.pageNumber
     );
-
     this.setState({
       movies: this.state.movies.concat(response.movies),
-      movieCount: response.total_results
+      movieCount: response.total
     });
 
     this.pageNumber++;

@@ -28,7 +28,7 @@ class SearchBar extends Component {
       <div className="ui" style={{ display: "flex" }}>
         <img
           style={{ border: "1px solid rgb(58, 57, 57)" }}
-          className="ui center aligned image movie-item-image"
+          className="ui center aligned image"
           src={poster_path}
           width={60}
           height={80}
@@ -46,10 +46,9 @@ class SearchBar extends Component {
     );
   };
 
-  debouncedLoadSuggestions = debounce(this.loadSuggestions, 1000);
+  debouncedLoadSuggestions = debounce(this.loadSuggestions, 500);
 
   async loadSuggestions(value) {
-    console.log("loading suggestions");
     const response = await searchMovies(Config.SEARCH_MOVIES, value, 1);
     this.setState({
       suggestions: response.movies
@@ -86,12 +85,19 @@ class SearchBar extends Component {
     this.setState({ term: "" });
   };
 
+  keyDownHandler = event => {
+    if (event.keyCode === 13) {
+      this.submitHandler(event);
+    }
+  };
+
   render() {
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
       placeholder: "Search Movie",
       value: this.state.term,
-      onChange: this.changeHandler
+      onChange: this.changeHandler,
+      onKeyDown: this.keyDownHandler
     };
     const { suggestions } = this.state;
     return (
