@@ -1,7 +1,18 @@
 import * as Config from "../config";
-import Axios from "./axios";
+import { getAxiosInstance } from "./AppApi";
 
-export const searchMovies = async (searchType, searchParam, pageNumber) => {
+const instance = getAxiosInstance();
+
+export const cancelTokenSource = () => {
+  return instance.CancelToken.source();
+};
+
+export const searchMovies = async (
+  cancelToken,
+  searchType,
+  searchParam,
+  pageNumber
+) => {
   let method;
   let params = {
     language: "en-US",
@@ -20,22 +31,33 @@ export const searchMovies = async (searchType, searchParam, pageNumber) => {
     method = Config.MOVIE_API + "/" + searchType;
   }
 
-  const response = await Axios.get(method, {
-    params: params
-  });
+  try {
+    const response = await instance.get(method, {
+      params: params,
+      cancelToken: cancelToken
+    });
 
-  const movies = response.data.results;
-  return { movies: movies, total: response.data.total_results };
+    const movies = response.data.results;
+    return { movies: movies, total: response.data.total_results };
+  } catch (err) {
+    console.log("Error: ", err);
+    return null;
+  }
 };
 
-export const getMovieDetails = async id => {
+export const getMovieDetails = async (cancelToken, id) => {
   let params = {
     append_to_response: "credits,images,videos,reviews,similar"
   };
   const method = Config.MOVIE_API + "/" + id;
-  const response = await Axios.get(method, {
-    params: params
-  });
-  console.log("Movie details", response);
-  return response.data;
+  try {
+    const response = await instance.get(method, {
+      params: params,
+      cancelToken: cancelToken
+    });
+    return response.data;
+  } catch (err) {
+    console.log("Error: ", err);
+    return null;
+  }
 };

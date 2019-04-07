@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import * as Config from "../../config";
-import { searchMovies } from "../../api/MovieAPI";
+import { searchMovies, cancelTokenSource } from "../../api/MovieAPI";
 import MovieListItem from "./MovieListItem";
 import { addCssClass, removeCssClass } from "../../util/CssUtil";
 import * as uuidv4 from "uuid/v4";
@@ -12,6 +12,7 @@ class MovieList extends Component {
     super(props);
     this.dimmerRef = React.createRef();
     this.headingRef = React.createRef();
+    this.signal = cancelTokenSource();
   }
 
   pageNumber = 1;
@@ -21,6 +22,10 @@ class MovieList extends Component {
     searchType: "popular",
     searchParam: undefined,
     movieCount: 0
+  };
+
+  componentWillUnmount = () => {
+    this.signal.cancel("Cancelled");
   };
 
   // Search the movies with default state
@@ -92,17 +97,20 @@ class MovieList extends Component {
   // Call the TMDB api according to the search type
   getMovies = async () => {
     const response = await searchMovies(
+      this.signal.token,
       this.state.searchType,
       this.state.searchParam,
       this.pageNumber
     );
-    this.setState({
-      movies: this.state.movies.concat(response.movies),
-      movieCount: response.total
-    });
+    if (response) {
+      this.setState({
+        movies: this.state.movies.concat(response.movies),
+        movieCount: response.total
+      });
 
-    this.pageNumber++;
-    removeCssClass(this.dimmerRef, "active");
+      this.pageNumber++;
+      removeCssClass(this.dimmerRef, "active");
+    }
   };
 
   render() {

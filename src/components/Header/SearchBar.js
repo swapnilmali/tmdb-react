@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
-import { searchMovies } from "../../api/MovieAPI";
+import { searchMovies, cancelTokenSource } from "../../api/MovieAPI";
 import GenreList from "../GenreList/GenreList";
 import * as Config from "../../config";
 import { debounce } from "lodash";
@@ -11,6 +11,7 @@ class SearchBar extends Component {
     term: "",
     suggestions: []
   };
+  signal = cancelTokenSource();
   selectedSuggestion = null;
   // When suggestion is clicked, Autosuggest needs to populate the input
   // based on the clicked suggestion. Teach Autosuggest how to calculate the
@@ -48,12 +49,23 @@ class SearchBar extends Component {
 
   debouncedLoadSuggestions = debounce(this.loadSuggestions, 500);
 
+  componentWillUnmount = () => {
+    this.signal.cancel("Cancelled");
+  };
+
   async loadSuggestions(value) {
-    const response = await searchMovies(Config.SEARCH_MOVIES, value, 1);
+    const response = await searchMovies(
+      this.signal.token,
+      Config.SEARCH_MOVIES,
+      value,
+      1
+    );
     this.selectedSuggestion = null;
-    this.setState({
-      suggestions: response.movies
-    });
+    if (response) {
+      this.setState({
+        suggestions: response.movies
+      });
+    }
   }
 
   // Autosuggest will call this function every time you need to update suggestions.
@@ -96,7 +108,6 @@ class SearchBar extends Component {
 
   keyDownHandler = event => {
     if (event.keyCode === 13 && !this.selectedSuggestion) {
-      console.log(this.selectedSuggestion);
       this.submitHandler(event);
     }
   };

@@ -26,8 +26,7 @@
 }
 
 .movie-item-image {
-  max-height: 400px;
-  min-height: 400px;
+  min-height: 380px;
 }
 
 .react-autosuggest__container {
