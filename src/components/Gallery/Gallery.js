@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import * as uuidv4 from "uuid/v4";
 import { BASE_IMAGE_URL } from "../../config";
 import Lightbox from "react-images";
+import GalleryItem from "./GalleryItem";
 
 const textStyle = {
   fontFamily: "Roboto Condensed",
@@ -39,7 +39,7 @@ class Gallery extends Component {
     });
   };
 
-  getImageComponents() {
+  getItems() {
     const gallerySource = [];
     const { images } = this.props;
     if (!images) {
@@ -57,25 +57,12 @@ class Gallery extends Component {
         }
 
         return (
-          <div
-            className="ui image"
-            key={uuidv4()}
-            data-index={index}
-            onClick={() => {
-              this.openLightbox(index);
-            }}
-          >
-            <img
-              className="ui image"
-              alt={image.file_path}
-              src={src}
-              style={{
-                border: "1px solid #333",
-                marginBottom: "5px",
-                cursor: "pointer"
-              }}
-            />
-          </div>
+          <GalleryItem
+            index={index}
+            src={src}
+            openLightbox={this.openLightbox}
+            filePath={image.file_path}
+          />
         );
       })
       .slice(0, 10);
@@ -88,7 +75,7 @@ class Gallery extends Component {
       return null;
     }
 
-    const imageComponents = this.getImageComponents();
+    const imageComponents = this.getItems();
     const imagesUI = imageComponents.ui;
     const gallerySource = imageComponents.gallerySource;
 

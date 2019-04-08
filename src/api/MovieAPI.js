@@ -1,7 +1,7 @@
 import * as Config from "../config";
-import { getAxiosInstance } from "./AppApi";
+import { getInstance } from "./AppApi";
 
-const instance = getAxiosInstance();
+const instance = getInstance();
 
 export const cancelTokenSource = () => {
   return instance.CancelToken.source();
@@ -47,7 +47,7 @@ export const searchMovies = async (
 
 export const getMovieDetails = async (cancelToken, id) => {
   let params = {
-    append_to_response: "credits,images,videos,reviews,similar"
+    append_to_response: "credits,images"
   };
   const method = Config.MOVIE_API + "/" + id;
   try {

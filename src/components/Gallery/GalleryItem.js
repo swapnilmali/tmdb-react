@@ -1,24 +1,27 @@
 import React from "react";
-import YouTube from "react-youtube";
-
-function _onReady(event) {
-  // access to player in all event handlers via event.target
-  //   event.target.pauseVideo();
-}
+import * as uuidv4 from "uuid/v4";
 
 const GalleryItem = props => {
-  const { data } = props;
-  const opts = {
-    height: "390",
-    width: "640",
-    playerVars: {
-      autoplay: 0
-    }
-  };
+  const { index, openLightbox, filePath, src } = props;
   return (
-    <div>
-      <h1>GalleryItem</h1>
-      <YouTube videoId="2g811Eo7K8U" opts={opts} onReady={_onReady} />
+    <div
+      className="ui image"
+      key={uuidv4()}
+      data-index={index}
+      onClick={() => {
+        openLightbox(index);
+      }}
+    >
+      <img
+        className="ui image"
+        alt={filePath}
+        src={src}
+        style={{
+          border: "1px solid #333",
+          marginBottom: "5px",
+          cursor: "pointer"
+        }}
+      />
     </div>
   );
 };

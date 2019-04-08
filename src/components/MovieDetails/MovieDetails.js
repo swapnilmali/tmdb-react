@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { BASE_IMAGE_URL } from "../../config";
-import { setDefaultBgProperties } from "../../util/CssUtil";
+import { resetBackground } from "../../util/CssUtil";
 import MovieMeta from "./MovieMeta";
 import { getMovieDetails, cancelTokenSource } from "../../api/MovieAPI";
 import Pace from "react-pace-progress";
@@ -11,6 +11,7 @@ import Gallery from "../Gallery/Gallery";
 class MovieDetails extends Component {
   state = { movie: null, loaded: false };
   signal = cancelTokenSource();
+
   // Check the props for changes in the state
   // set the state according to the route
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -43,7 +44,7 @@ class MovieDetails extends Component {
     const body = document.querySelector("body");
     body.style.background =
       "radial-gradient(circle,rgb(5, 132, 252) 0%,rgb(230, 28, 248) 100%)";
-    setDefaultBgProperties(body);
+    resetBackground(body);
   };
 
   setBackdrop = () => {
@@ -54,7 +55,7 @@ class MovieDetails extends Component {
     if (backgroundImage) {
       const body = document.querySelector("body");
       body.style.backgroundImage = `url('${backgroundImage}')`;
-      setDefaultBgProperties(body);
+      resetBackground(body);
     }
   };
 

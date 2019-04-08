@@ -48,19 +48,19 @@ class MovieList extends Component {
   }
 
   getHeading = () => {
-    let heading = "";
+    let heading;
     switch (this.state.searchType) {
       case Config.POPULAR_MOVIES:
-        heading += "Popular";
+        heading = "Popular";
         break;
       case Config.TOP_RATED_MOVIES:
-        heading += "Top Rated";
+        heading = "Top Rated";
         break;
       case Config.UPCOMING_MOVIES:
-        heading += "Upcoming";
+        heading = "Upcoming";
         break;
       case Config.NOW_PLAYING_MOVIES:
-        heading += "Now Playing";
+        heading = "Now Playing";
         break;
       case Config.SEARCH_MOVIES:
         heading =

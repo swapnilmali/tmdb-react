@@ -1,5 +1,5 @@
 import React from "react";
-import { getRating } from "../../util/MovieUtil";
+import * as MovieUtil from "../../util/MovieUtil";
 import GenreList from "../GenreList/GenreList";
 import { BASE_IMAGE_URL } from "../../config";
 
@@ -8,13 +8,6 @@ const textStyle = {
   fontSize: "22px",
   color: "white"
 };
-
-function getTagLine(movie) {
-  if (movie.tagline) {
-    return <div style={textStyle}>{movie.tagline}</div>;
-  }
-  return "";
-}
 
 const MovieMeta = props => {
   const { movie } = props;
@@ -25,33 +18,7 @@ const MovieMeta = props => {
   const src = poster_path
     ? `${BASE_IMAGE_URL}/w342${poster_path}`
     : "/assets/poster.png";
-  const companies = movie.production_companies
-    ? movie.production_companies.slice(0, 3).map(company => {
-        const companySrc = company.logo_path
-          ? `${BASE_IMAGE_URL}/w185${company.logo_path}`
-          : "/assets/logo.png";
-        return (
-          <div
-            key={company.id}
-            className="ui image"
-            data-tooltip={company.name}
-            data-position="bottom center"
-            data-inverted
-            style={{
-              backgroundColor: "#ddd",
-              paddingTop: "5px",
-              marginLeft: "1vw"
-            }}
-          >
-            <img
-              className="ui small image"
-              alt={company.name}
-              src={companySrc}
-            />
-          </div>
-        );
-      })
-    : [];
+  const companies = MovieUtil.getCompanies(movie);
   return (
     <>
       <div className="ui stackable two column grid">
@@ -77,7 +44,7 @@ const MovieMeta = props => {
               >
                 {movie.title}
               </div>
-              <span className="field">{getRating(movie)}</span>
+              <span className="field">{MovieUtil.getRating(movie)}</span>
             </div>
             <GenreList
               className="field"
@@ -95,7 +62,7 @@ const MovieMeta = props => {
             }}
           >
             <div className="ui left floated twelve wide column">
-              {getTagLine(movie)}
+              {MovieUtil.getTagLine(movie)}
               {movie.overview}
               {movie.production_companies ? (
                 <div

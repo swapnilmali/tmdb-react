@@ -23,9 +23,9 @@ export const hasClass = (element, className) => {
   );
 };
 
-export const setDefaultBgProperties = body => {
+export const resetBackground = body => {
   body.style.backgroundRepeat = "no-repeat";
-  body.style.backgroundPosition = "center";
+  body.style.backgroundPosition = "top left";
   body.style.backgroundAttachment = "fixed";
   body.style.backgroundSize = "cover";
 };
