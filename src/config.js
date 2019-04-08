@@ -5,7 +5,7 @@ export const BASE_API_URL = "https://api.themoviedb.org/3";
 export const BASE_IMAGE_URL = "https://image.tmdb.org/t/p";
 
 // Genres
-export const GENRES = [];
+export const GENRES = Array(19);
 GENRES[28] = { label: "Action", color: "#F34336" };
 GENRES[12] = { label: "Adventure", color: "#E81E63" };
 GENRES[16] = { label: "Animation", color: "#9B27AF" };
