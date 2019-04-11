@@ -33,3 +33,7 @@ npm start
 ```
 
 Open your browser at: http://localhost:3000
+
+## License
+
+[MIT](https://github.com/swapnilmali/tmdb/blob/master/LICENCE)
