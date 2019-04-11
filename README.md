@@ -17,6 +17,7 @@
   <h3>Getting Started</h3>
   <ul>
   <li>Clone the repo</li>
+  <li>Add the API key of TMDB in config.js</li>
   <li>npm install</li>
   <li>npm start</li>
   <li>Open your browser at: http://localhost:3000</li>
