@@ -15,7 +15,6 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "react-star-ratings": "^2.3.0",
-    "react-youtube": "^7.9.0",
     "uuid": "^3.3.2"
   },
   "scripts": {
