@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { BASE_IMAGE_URL } from "../../config";
 import { resetBackground } from "../../util/CssUtil";
-import MovieMeta from "./MovieMeta";
 import { getMovieDetails, cancelTokenSource } from "../../api/MovieAPI";
 import Pace from "react-pace-progress";
 import CreditList from "./CreditList";
 import Gallery from "../Gallery/Gallery";
+import MovieMeta from "./MovieMeta/MovieMeta";
 
 class MovieDetails extends Component {
   state = { movie: null, loaded: false };

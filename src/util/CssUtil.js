@@ -23,9 +23,9 @@ export const hasClass = (element, className) => {
   );
 };
 
-export const resetBackground = body => {
-  body.style.backgroundRepeat = "no-repeat";
-  body.style.backgroundPosition = "top left";
-  body.style.backgroundAttachment = "fixed";
-  body.style.backgroundSize = "cover";
+export const resetBackground = element => {
+  element.style.backgroundRepeat = "no-repeat";
+  element.style.backgroundPosition = "top left";
+  element.style.backgroundAttachment = "fixed";
+  element.style.backgroundSize = "cover";
 };

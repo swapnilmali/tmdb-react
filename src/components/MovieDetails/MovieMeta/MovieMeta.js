@@ -1,13 +1,22 @@
 import React from "react";
-import * as MovieUtil from "../../util/MovieUtil";
-import GenreList from "../GenreList/GenreList";
-import { BASE_IMAGE_URL } from "../../config";
+import GenreList from "../../GenreList/GenreList";
+import { BASE_IMAGE_URL } from "../../../config";
+import MovieReleaseDetails from "./MovieReleaseDetails";
+import CompanyList from "./CompanyList";
+import MovieRating from "../../MovieRating/MovieRating";
 
-const textStyle = {
+const taglineStyle = {
   marginBottom: "1em",
   fontSize: "22px",
   color: "white"
 };
+
+function getTagLine(tagline) {
+  if (tagline) {
+    return <div style={taglineStyle}>{tagline}</div>;
+  }
+  return "";
+}
 
 const MovieMeta = props => {
   const { movie } = props;
@@ -18,7 +27,6 @@ const MovieMeta = props => {
   const src = poster_path
     ? `${BASE_IMAGE_URL}/w342${poster_path}`
     : "/assets/poster.png";
-  const companies = MovieUtil.getCompanies(movie);
   return (
     <>
       <div className="ui stackable two column grid">
@@ -44,7 +52,9 @@ const MovieMeta = props => {
               >
                 {movie.title}
               </div>
-              <span className="field">{MovieUtil.getRating(movie)}</span>
+              <span className="field">
+                <MovieRating rating={movie.vote_average} />
+              </span>
             </div>
             <GenreList
               className="field"
@@ -62,42 +72,20 @@ const MovieMeta = props => {
             }}
           >
             <div className="ui left floated twelve wide column">
-              {MovieUtil.getTagLine(movie)}
+              {getTagLine(movie.tagline)}
               {movie.overview}
               {movie.production_companies ? (
                 <div
                   className="ui images computer only"
                   style={{ margin: "20px" }}
                 >
-                  {companies}
+                  <CompanyList movie={movie} />
                 </div>
               ) : null}
             </div>
             {movie.runtime ? (
               <div className="center aligned four wide column">
-                <div>
-                  <span style={textStyle}>Released date </span>
-                  <br />
-                  <span>{movie.release_date}</span>
-                </div>
-                <br />
-                <div>
-                  <span style={textStyle}>Runtime </span>
-                  <br />
-                  <span>{movie.runtime} mins</span>
-                </div>
-                <br />
-                <div>
-                  <span style={textStyle}>Budget </span>
-                  <br />
-                  <span>${movie.budget}</span>
-                </div>
-                <br />
-                <div>
-                  <span style={textStyle}>Revenue </span>
-                  <br />
-                  <span>${movie.revenue}</span>
-                </div>
+                <MovieReleaseDetails movie={movie} />
               </div>
             ) : null}
           </div>

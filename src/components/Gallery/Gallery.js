@@ -47,6 +47,7 @@ class Gallery extends Component {
     }
     const imageComponents = images
       .map((image, index) => {
+        console.log(image);
         const src = image.file_path
           ? `${BASE_IMAGE_URL}/w300${image.file_path}`
           : "/assets/photo.png";
@@ -58,6 +59,7 @@ class Gallery extends Component {
 
         return (
           <GalleryItem
+            key={image.file_path}
             index={index}
             src={src}
             openLightbox={this.openLightbox}

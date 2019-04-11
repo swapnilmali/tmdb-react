@@ -4,7 +4,7 @@ import { addCssClass, removeCssClass } from "../../util/CssUtil";
 import { BASE_IMAGE_URL } from "../../config";
 import GenreList from "../GenreList/GenreList";
 import { MOVIE_API } from "../../config";
-import { getRating } from "../../util/MovieUtil";
+import MovieRating from "../MovieRating/MovieRating";
 
 class MovieListItem extends Component {
   constructor(props) {
@@ -69,7 +69,7 @@ class MovieListItem extends Component {
         style={{ cursor: "pointer" }}
         onClick={this.clickHandler}
       >
-        {getRating(movie)}
+        <MovieRating rating={movie.vote_average} />
         {/* <div class="ui placeholder"> */}
         <div className="ui image">
           <img
