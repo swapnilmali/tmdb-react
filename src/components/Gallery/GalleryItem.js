@@ -1,6 +1,10 @@
 import React from "react";
 import * as uuidv4 from "uuid/v4";
 
+/**
+ * GalleryItem component renders the single backdrop image of the movie.
+ * @param {*} props
+ */
 const GalleryItem = props => {
   const { index, openLightbox, filePath, src } = props;
   return (

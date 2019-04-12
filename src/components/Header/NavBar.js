@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as Config from "../../config";
 
+/**
+ * NavBar component.
+ * It consists of the links to the movie listings
+ * @param {*} props
+ */
 const NavBar = props => {
   return (
     <div>

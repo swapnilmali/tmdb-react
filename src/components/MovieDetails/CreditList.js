@@ -7,6 +7,10 @@ const textStyle = {
   fontSize: "22px"
 };
 
+/**
+ * Renders the cast and crew of the movie.
+ * @param {*} props
+ */
 const CreditList = props => {
   if (!props || !props.movie || !props.movie.credits) {
     return null;

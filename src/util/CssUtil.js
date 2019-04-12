@@ -1,3 +1,8 @@
+/**
+ * Adds css class to the dom element
+ * @param {*} element
+ * @param {*} className
+ */
 export const addCssClass = (element, className) => {
   if (element.current.classList) {
     element.current.classList.add(className);
@@ -6,6 +11,11 @@ export const addCssClass = (element, className) => {
   }
 };
 
+/**
+ * Removes css class of the dom element
+ * @param {*} element
+ * @param {*} className
+ */
 export const removeCssClass = (element, className) => {
   if (element.current.classList) {
     element.current.classList.remove(className);
@@ -15,7 +25,11 @@ export const removeCssClass = (element, className) => {
   }
 };
 
-// Returns if the class exists on the provided element
+/**
+ * Returns if the class exists on the provided element
+ * @param {*} element
+ * @param {*} className
+ */
 export const hasClass = (element, className) => {
   if (element.classList) return element.classList.contains(className);
   return !!element.className.match(
@@ -23,6 +37,10 @@ export const hasClass = (element, className) => {
   );
 };
 
+/**
+ * Reset the background properties of the given element
+ * @param {*} element
+ */
 export const resetBackground = element => {
   element.style.backgroundRepeat = "no-repeat";
   element.style.backgroundPosition = "top left";

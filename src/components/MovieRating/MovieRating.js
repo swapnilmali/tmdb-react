@@ -3,6 +3,10 @@ import StarRatings from "react-star-ratings/build/star-ratings";
 
 const textStyle = { color: "white", fontWeight: "bold" };
 
+/**
+ * Renders the star ratings
+ * @param {*} rating
+ */
 const MovieRating = ({ rating }) => {
   if (rating > 0) {
     return (

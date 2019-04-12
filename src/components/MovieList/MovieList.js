@@ -7,6 +7,10 @@ import MovieListItem from "./MovieListItem";
 import { addCssClass, removeCssClass } from "../../util/CssUtil";
 import * as uuidv4 from "uuid/v4";
 
+/**
+ * To show the list of the movies.
+ * Contains infinite scroll to show the result
+ */
 class MovieList extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +19,11 @@ class MovieList extends Component {
     this.signal = cancelTokenSource();
   }
 
+  /**
+   * Current page number to search from the server
+   */
   pageNumber = 1;
+
   state = {
     movies: [],
     error: null,
@@ -24,17 +32,26 @@ class MovieList extends Component {
     movieCount: 0
   };
 
+  /**
+   * Cancel the async request of the search movie listings
+   */
   componentWillUnmount = () => {
     this.signal.cancel("Cancelled");
   };
 
-  // Search the movies with default state
+  /**
+   * Search the movies with default state
+   */
+
   componentDidMount() {
     addCssClass(this.dimmerRef, "active");
     this.getMovies();
   }
 
-  // Listen for the state change and search the movies with changed state
+  /**
+   * Listen for the state change and search the movies with changed state
+   */
+
   componentDidUpdate(prevProps, prevState) {
     if (
       prevState.searchType !== this.state.searchType ||
@@ -47,6 +64,9 @@ class MovieList extends Component {
     }
   }
 
+  /**
+   * Helper function to return the heading
+   */
   getHeading = () => {
     let heading;
     switch (this.state.searchType) {
@@ -77,8 +97,13 @@ class MovieList extends Component {
     return heading;
   };
 
-  // Check the props for changes in the state
-  // set the state according to the route
+  /**
+   * Check the props for changes in the state
+   * set the state according to the route parameter
+   * There are four listing types
+   * @param {*} nextProps
+   * @param {*} prevState
+   */
   static getDerivedStateFromProps(nextProps, prevState) {
     const { match } = nextProps;
     let searchType = Config.SEARCH_MOVIES;
@@ -94,7 +119,9 @@ class MovieList extends Component {
     return { searchType, searchParam };
   }
 
-  // Call the TMDB api according to the search type
+  /**
+   * Get the list of the movies according to search parameters
+   */
   getMovies = async () => {
     const response = await searchMovies(
       this.signal.token,
@@ -113,6 +140,9 @@ class MovieList extends Component {
     }
   };
 
+  /**
+   * Renders movies inside infinite scroll
+   */
   render() {
     const movies = this.state.movies.map(movie => {
       return <MovieListItem key={uuidv4()} movie={movie} />;

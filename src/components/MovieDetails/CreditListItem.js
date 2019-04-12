@@ -1,6 +1,10 @@
 import React from "react";
 import { BASE_IMAGE_URL } from "../../config";
 
+/**
+ * Renders the image, name and charater of the cast/crew
+ * @param {*} props
+ */
 const CreditListItem = props => {
   if (!props || !props.credit) {
     return null;

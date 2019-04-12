@@ -6,6 +6,10 @@ const textStyle = {
   color: "white"
 };
 
+/**
+ * Renders the movie release date, runtime, revenue and budget
+ * @param {*} props
+ */
 const MovieReleaseDetails = props => {
   const { movie } = props;
   return (

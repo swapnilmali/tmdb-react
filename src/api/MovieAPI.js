@@ -1,16 +1,29 @@
 import * as Config from "../config";
 import { getInstance } from "./AppApi";
 
+/**
+ * Axios instance from the AppApi
+ */
 const instance = getInstance();
 
+/**
+ * Returns cancel token of axios.
+ */
 export const cancelTokenSource = () => {
   return instance.CancelToken.source();
 };
 
+/**
+ * Search the movies with given parameters.
+ * @param {*} cancelTokenSource axios cancel token
+ * @param {*} searchType Type of the movie listing.
+ * @param {*} searchQuery Query to search movies.
+ * @param {*} pageNumber Number of the page to return from server.
+ */
 export const searchMovies = async (
-  cancelToken,
+  cancelTokenSource,
   searchType,
-  searchParam,
+  searchQuery,
   pageNumber
 ) => {
   let method;
@@ -22,7 +35,7 @@ export const searchMovies = async (
   if (searchType === Config.SEARCH_MOVIES) {
     method = "/" + Config.SEARCH_MOVIES + "/movie";
     params = {
-      query: searchParam,
+      query: searchQuery,
       language: "en-US",
       region: "US",
       page: pageNumber
@@ -34,7 +47,7 @@ export const searchMovies = async (
   try {
     const response = await instance.get(method, {
       params: params,
-      cancelToken: cancelToken
+      cancelToken: cancelTokenSource
     });
 
     const movies = response.data.results;
@@ -45,7 +58,12 @@ export const searchMovies = async (
   }
 };
 
-export const getMovieDetails = async (cancelToken, id) => {
+/**
+ * Search the movie details.
+ * @param {*} cancelTokenSource axios cancel token
+ * @param {*} id Id of the movie
+ */
+export const getMovieDetails = async (cancelTokenSource, id) => {
   let params = {
     append_to_response: "credits,images"
   };
@@ -53,7 +71,7 @@ export const getMovieDetails = async (cancelToken, id) => {
   try {
     const response = await instance.get(method, {
       params: params,
-      cancelToken: cancelToken
+      cancelToken: cancelTokenSource
     });
     return response.data;
   } catch (err) {

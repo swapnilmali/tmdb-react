@@ -11,6 +11,11 @@ const taglineStyle = {
   color: "white"
 };
 
+/**
+ * Helper function to return the tagline of the movie.
+ * If the movie don't have tagline returns blank.
+ * @param {*} tagline
+ */
 function getTagLine(tagline) {
   if (tagline) {
     return <div style={taglineStyle}>{tagline}</div>;
@@ -18,6 +23,11 @@ function getTagLine(tagline) {
   return "";
 }
 
+/**
+ * Renders the movie metadata
+ * It consists of movie title, tagline, overview, ratings and movie release information
+ * @param {*} props
+ */
 const MovieMeta = props => {
   const { movie } = props;
   if (!movie) {

@@ -6,7 +6,13 @@ import MovieList from "./components/MovieList/MovieList";
 import Footer from "./components/Footer/Footer";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 
+/**
+ * Main application component
+ */
 class App extends Component {
+  /**
+   * Hide the application loader div
+   */
   componentDidMount = () => {
     var applicationLoader = document.querySelector("#application-loader");
     applicationLoader.outerHTML = "";

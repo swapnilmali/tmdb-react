@@ -10,9 +10,15 @@ const textStyle = {
   textAlign: "center"
 };
 
+/**
+ * Gallery class to show the backdrops of the movie.
+ */
 class Gallery extends Component {
   state = { currentImageIndex: 0, lightboxIsOpen: false };
 
+  /**
+   * Opens lightbox component on clicking of the gallery item
+   */
   openLightbox = index => {
     this.setState({
       currentImageIndex: index,
@@ -20,6 +26,9 @@ class Gallery extends Component {
     });
   };
 
+  /**
+   * Closes the lighbox
+   */
   closeLightbox = () => {
     this.setState({
       currentImageIndex: 0,
@@ -27,18 +36,28 @@ class Gallery extends Component {
     });
   };
 
+  /**
+   * Navigate to previous image in the lightbox
+   */
   gotoPrevious = () => {
     this.setState({
       currentImageIndex: this.state.currentImageIndex - 1
     });
   };
 
+  /**
+   * Navigate to next image in the lightbox
+   */
   gotoNext = () => {
     this.setState({
       currentImageIndex: this.state.currentImageIndex + 1
     });
   };
 
+  /**
+   * Returns the object which contains UI of the gallery items
+   * and the data source for the lightbox component
+   */
   getItems() {
     const gallerySource = [];
     const { images } = this.props;
@@ -47,7 +66,6 @@ class Gallery extends Component {
     }
     const imageComponents = images
       .map((image, index) => {
-        console.log(image);
         const src = image.file_path
           ? `${BASE_IMAGE_URL}/w300${image.file_path}`
           : "/assets/photo.png";
@@ -71,6 +89,9 @@ class Gallery extends Component {
     return { ui: imageComponents, gallerySource: gallerySource };
   }
 
+  /**
+   * Render function of the component. Renders the GalleryItem components in a grid fashion.
+   */
   render() {
     const { images } = this.props;
     if (!images) {

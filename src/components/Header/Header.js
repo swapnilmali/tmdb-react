@@ -9,6 +9,11 @@ const imageStyle = {
   maxWidth: "150px"
 };
 
+/**
+ * Header component
+ * It consists of Logo, NavBar and SearchBar components
+ * @param {*} props
+ */
 const Header = props => {
   return (
     <div className="black-background">
