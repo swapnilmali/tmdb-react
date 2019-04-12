@@ -1,6 +1,12 @@
 import React from "react";
 import { BASE_IMAGE_URL } from "../../config";
 
+const imageStyle = {
+  border: "1px solid #aaa",
+  objectFit: "cover",
+  marginBottom: "10px"
+};
+
 /**
  * Renders the image, name and charater of the cast/crew
  * @param {*} props
@@ -24,11 +30,7 @@ const CreditListItem = props => {
         src={src}
         width={150}
         height={150}
-        style={{
-          border: "1px solid #aaa",
-          objectFit: "cover",
-          marginBottom: "10px"
-        }}
+        style={imageStyle}
       />
       <span
         style={{

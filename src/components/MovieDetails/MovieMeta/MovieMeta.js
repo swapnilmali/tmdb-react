@@ -11,6 +11,21 @@ const taglineStyle = {
   color: "white"
 };
 
+const titleStyle = {
+  fontFamily: "Spectral",
+  fontSize: "35px",
+  lineHeight: "1em"
+};
+
+const imageStyle = { maxHeight: "400px", border: "1px solid #666" };
+
+const gridStyle = {
+  marginTop: "1vh",
+  color: "#ddd",
+  fontSize: "18px",
+  lineHeight: "1.2em"
+};
+
 /**
  * Helper function to return the tagline of the movie.
  * If the movie don't have tagline returns blank.
@@ -46,20 +61,13 @@ const MovieMeta = props => {
             className="ui centered image"
             alt={movie.title}
             src={src}
-            style={{ maxHeight: "400px", border: "1px solid #666" }}
+            style={imageStyle}
           />
         </div>
         <div className="right floated twelve wide column">
           <div className="ui form">
             <div className="inline fields">
-              <div
-                className="field"
-                style={{
-                  fontFamily: "Spectral",
-                  fontSize: "35px",
-                  lineHeight: "1em"
-                }}
-              >
+              <div className="field" style={titleStyle}>
                 {movie.title}
               </div>
               <span className="field">
@@ -74,12 +82,7 @@ const MovieMeta = props => {
           </div>
           <div
             className="ui stackable two column centered grid"
-            style={{
-              marginTop: "1vh",
-              color: "#ddd",
-              fontSize: "18px",
-              lineHeight: "1.2em"
-            }}
+            style={gridStyle}
           >
             <div className="ui left floated twelve wide column">
               {getTagLine(movie.tagline)}

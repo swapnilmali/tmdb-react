@@ -1,6 +1,12 @@
 import React from "react";
 import { BASE_IMAGE_URL } from "../../../config";
 
+const companyStyle = {
+  backgroundColor: "#ddd",
+  paddingTop: "5px",
+  marginLeft: "1vw"
+};
+
 /**
  * Renders the production company image
  * @param {*} company
@@ -17,11 +23,7 @@ const CompanyItem = ({ company }) => {
       data-tooltip={company.name}
       data-position="bottom center"
       data-inverted
-      style={{
-        backgroundColor: "#ddd",
-        paddingTop: "5px",
-        marginLeft: "1vw"
-      }}
+      style={companyStyle}
     >
       <img className="ui small image" alt={company.name} src={companySrc} />
     </div>

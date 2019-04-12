@@ -6,6 +6,9 @@ import GenreList from "../GenreList/GenreList";
 import * as Config from "../../config";
 import { debounce } from "lodash";
 
+const titleStyle = { marginLeft: "15px", fontWeight: "bold" };
+const genreStyle = { marginTop: "10px", cursor: "pointer" };
+
 /**
  * SearchBar component
  * Search the movies for the input from the user
@@ -50,13 +53,10 @@ class SearchBar extends Component {
           height={80}
           alt={movie.title}
         />
-        <span style={{ marginLeft: "15px", fontWeight: "bold" }}>
+        <span style={titleStyle}>
           &nbsp;{movie.title} ({movie.release_date.split("-")[0]})
           <br />
-          <GenreList
-            style={{ marginTop: "10px", cursor: "pointer" }}
-            genres={movie.genre_ids}
-          />
+          <GenreList style={genreStyle} genres={movie.genre_ids} />
         </span>
       </div>
     );

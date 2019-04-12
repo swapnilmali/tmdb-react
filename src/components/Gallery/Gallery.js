@@ -57,6 +57,7 @@ class Gallery extends Component {
   /**
    * Returns the object which contains UI of the gallery items
    * and the data source for the lightbox component
+   * Maximum 10 images are displayed
    */
   getItems() {
     const gallerySource = [];

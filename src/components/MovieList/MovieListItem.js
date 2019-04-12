@@ -6,6 +6,13 @@ import GenreList from "../GenreList/GenreList";
 import { MOVIE_API } from "../../config";
 import MovieRating from "../MovieRating/MovieRating";
 
+const titleStyle = {
+  color: "#00FF00",
+  fontFamily: "Spectral",
+  fontSize: "25px"
+};
+const style = { color: "white", fontWeight: "bold" };
+
 /**
  * Component to render the movie in the list
  */
@@ -30,8 +37,6 @@ class MovieListItem extends Component {
       : "/assets/poster.png";
     this.imageRef.current.src = src;
   };
-
-  style = { color: "white", fontWeight: "bold" };
 
   /**
    * Rollover handler shows the overview and genres of the movie inside dimmer
@@ -107,7 +112,7 @@ class MovieListItem extends Component {
             src="/assets/poster.png"
           />
         </div>
-        <div className="content" style={this.style}>
+        <div className="content" style={style}>
           {this.getTitle()} &nbsp;({movie.release_date.split("-")[0]})
         </div>
 
@@ -116,15 +121,8 @@ class MovieListItem extends Component {
           ref={this.dimmerRef}
           className="ui dimmer transition fade"
         >
-          <div className="content" style={this.style}>
-            <h2
-              className="ui inverted header"
-              style={{
-                color: "#00FF00",
-                fontFamily: "Spectral",
-                fontSize: "25px"
-              }}
-            >
+          <div className="content" style={style}>
+            <h2 className="ui inverted header" style={titleStyle}>
               {movie.title}
             </h2>
             <h4 style={{ color: "#cccccc" }}>{this.getOverview()}</h4>

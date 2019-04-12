@@ -1,6 +1,12 @@
 import React from "react";
 import * as uuidv4 from "uuid/v4";
 
+const imageStyle = {
+  border: "1px solid #333",
+  marginBottom: "5px",
+  cursor: "pointer"
+};
+
 /**
  * GalleryItem component renders the single backdrop image of the movie.
  * @param {*} props
@@ -16,16 +22,7 @@ const GalleryItem = props => {
         openLightbox(index);
       }}
     >
-      <img
-        className="ui image"
-        alt={filePath}
-        src={src}
-        style={{
-          border: "1px solid #333",
-          marginBottom: "5px",
-          cursor: "pointer"
-        }}
-      />
+      <img className="ui image" alt={filePath} src={src} style={imageStyle} />
     </div>
   );
 };
