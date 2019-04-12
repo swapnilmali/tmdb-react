@@ -3,8 +3,18 @@ import * as uuidv4 from "uuid/v4";
 
 const imageStyle = {
   border: "1px solid #333",
-  marginBottom: "5px",
+  marginBottom: "15px",
   cursor: "pointer"
+};
+
+const rollOverHandler = event => {
+  const img = event.target;
+  img.style.boxShadow = "0px 0px 5px #fff";
+};
+
+const rollOutHandler = event => {
+  const img = event.target;
+  img.style.boxShadow = "";
 };
 
 /**
@@ -22,7 +32,14 @@ const GalleryItem = props => {
         openLightbox(index);
       }}
     >
-      <img className="ui image" alt={filePath} src={src} style={imageStyle} />
+      <img
+        id="gallery-item-image"
+        alt={filePath}
+        src={src}
+        style={imageStyle}
+        onMouseOver={rollOverHandler}
+        onMouseOut={rollOutHandler}
+      />
     </div>
   );
 };
